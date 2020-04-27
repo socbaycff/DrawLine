@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.RectF
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -133,7 +132,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
         // ve duong ellipse
          //   drawEllipse(400f,500f,700f,700f,canvas)
     }
-
     var count = 0
     var putLength = 100
     var unputLength = 50
@@ -193,13 +191,19 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
         animatorSet.start()
     }
 
+    fun changeAxis(x: Int, y: Int) {
+        val originX = width/2
+        val originY = height/2
+
+        // toa do x thi cong them , toa do y thi tru
+    }
+
     fun drawRect(firstX: Int, firstY: Int, secondX: Int, secondY: Int,canvas: Canvas?) {
 
         drawLineMidPointSolid(firstX,firstY,secondX,firstY,canvas)
         drawLineMidPointSolid(secondX,firstY,secondX,secondY,canvas)
         drawLineMidPointSolid(secondX,secondY,firstX,secondY,canvas)
         drawLineMidPointSolid(firstX,firstY,firstX,secondY,canvas)
-
     }
 
     fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Float, canvas: Canvas?) {
