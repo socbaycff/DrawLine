@@ -86,6 +86,7 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
+        // ve duong
         //   drawLineMidPoint(0, 0, 800, 1500, canvas)
 //        if (xStart != null && yStart != null && xEnd != null && yEnd != null) {
 //            val x1 = xStart!!.toInt()
@@ -93,17 +94,44 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
 //            val x2 = xEnd!!.toInt()
 //            val y2 = yEnd!!.toInt()
 //            if (yEnd!! > yStart!!) {
-//                drawLineMidPointDash(x1, y1, x2, y2, canvas)
+//                drawLineMidPointSolid(x1, y1, x2, y2, canvas)
 //            } else {
-//                drawLineMidPointDash(x2, y2, x1, y1, canvas)
+//                drawLineMidPointSolid(x2, y2, x1, y1, canvas)
 //            }
-//
 //
 //        }
 
+        // ve hinh cn
+        if (xStart != null && yStart != null && xEnd != null && yEnd != null) {
+            var firstX = 0
+            var firstY = 0
+            var secondX = 0
+            var secondY = 0
+            if (xStart!! > xEnd!!) {
+                firstX = xEnd!!.toInt()
+                secondX = xStart!!.toInt()
+            } else {
+                firstX = xStart!!.toInt()
+                secondX = xEnd!!.toInt()
+            }
 
+            if (yStart!! > yEnd!!) {
+                firstY = yEnd!!.toInt()
+                secondY = yStart!!.toInt()
+            } else {
+                secondY = yEnd!!.toInt()
+                firstY = yStart!!.toInt()
+            }
+
+            drawRect(firstX,firstY,secondX,secondY,canvas)
+        }
+
+
+        // ve duong tron
          // drawCircle(400, 600, 1000, canvas)
-            drawEllipse(400f,500f,700f,700f,canvas)
+
+        // ve duong ellipse
+         //   drawEllipse(400f,500f,700f,700f,canvas)
     }
 
     var count = 0
@@ -132,7 +160,7 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
                 if (count == 1) {
                     xEnd = event.x
                     yEnd = event.y
-                    //animateView()
+                  //  animateView()
                     postInvalidate()
                 }
             }
@@ -163,6 +191,15 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
 
         animatorSet.play(xAnimator).with(yAnimator)
         animatorSet.start()
+    }
+
+    fun drawRect(firstX: Int, firstY: Int, secondX: Int, secondY: Int,canvas: Canvas?) {
+
+        drawLineMidPointSolid(firstX,firstY,secondX,firstY,canvas)
+        drawLineMidPointSolid(secondX,firstY,secondX,secondY,canvas)
+        drawLineMidPointSolid(secondX,secondY,firstX,secondY,canvas)
+        drawLineMidPointSolid(firstX,firstY,firstX,secondY,canvas)
+
     }
 
     fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Float, canvas: Canvas?) {
@@ -241,15 +278,13 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
         var x: Int = r
         var y = 0
 
-        // Printing the initial point
-        // on the axes after translation
+        // Printing the initial point on the axes after translation
         System.out.print(
             "(" + (x + x_centre)
                 .toString() + ", " + (y + y_centre).toString() + ")"
         )
 
-        // When radius is zero only a single
-        // point will be printed
+        // When radius is zero only a single point will be printed
         if (r > 0) {
             canvas?.drawPoint(x + x_centre.toFloat(), -y + y_centre.toFloat(), paint)
             canvas?.drawPoint(y + x_centre.toFloat(), x + y_centre.toFloat(), paint)
@@ -270,7 +305,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
             if (x < y) break
 
             // Printing the generated point and its reflection in the other octants after translation
-
             if (pattern[counter++ % (pattern.size)]) {
                 canvas?.drawPoint(x + x_centre.toFloat(), y + y_centre.toFloat(), paint)
                 canvas?.drawPoint(-x + x_centre.toFloat(), y + y_centre.toFloat(), paint)
@@ -291,8 +325,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
 
 
     fun drawLineMidPointDash(startX: Int, startY: Int, endX: Int, endY: Int, canvas: Canvas?) {
-
-
 
         val dx = endX - startX
         val dy = endY - startY
@@ -315,7 +347,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
                     if (pattern[counter++ % (pattern.size)]) {
                         canvas?.drawPoint(x, y, paint)
                     }
-
 
                 }
             } else {
@@ -384,7 +415,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
                         d += -dy - dx
                         y++
                     }
-
                     canvas?.drawPoint(x, y, paint)
 
                 }
@@ -397,7 +427,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
                         d += -dx - dy
                         x--
                     }
-
                     canvas?.drawPoint(x, y, paint)
 
                 }
@@ -412,7 +441,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
                         d += dy - dx
                         y++
                     }
-
                     canvas?.drawPoint(x, y, paint)
 
                 }
@@ -425,7 +453,6 @@ class LineView(context: Context, attributeSet: AttributeSet) : View(context, att
                         d += dx - dy
                         x++
                     }
-
                     canvas?.drawPoint(x, y, paint)
 
                 }
