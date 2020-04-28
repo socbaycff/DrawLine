@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/bai1">
+
+    <fragment
+        android:id="@+id/bai3"
+        android:name="com.example.drawline.ui.bai3.Bai3Frag"
+        android:label="Bài 3: Hình tròn"
+        tools:layout="@layout/fragment_bai3"/>
+
+    <fragment
+        android:id="@+id/bai1"
+        android:name="com.example.drawline.ui.bai1.Bai1Frag"
+        android:label="Bài 1: Toạ độ"
+        tools:layout="@layout/fragment_bai1" />
+
+    <fragment
+        android:id="@+id/bai2"
+        android:name="com.example.drawline.ui.bai2.Bai2Frag"
+        android:label="Bài 2: Đường thẳng"
+        tools:layout="@layout/fragment_bai2" />
+    <fragment
+        android:id="@+id/bai4"
+        android:name="com.example.drawline.ui.bai4.Bai4Frag"
+        android:label="Bài 4: Ellipse"
+        tools:layout="@layout/fragment_bai4" />
+</navigation>
