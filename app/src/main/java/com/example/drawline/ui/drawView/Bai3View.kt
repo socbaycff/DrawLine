@@ -6,9 +6,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import java.lang.Math.pow
 
 class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attributeSet) {
 
@@ -53,7 +55,10 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             val factor = detector.scaleFactor
             val multi = if (factor > 1.0) 10 else -10
-            radius = radius+ multi
+            if (radius + multi > 0) {
+                radius = radius+ multi
+            }
+
             postInvalidate()
             return true
         }
@@ -63,14 +68,20 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         val action = event?.action
 
-        mScaleDetector.onTouchEvent(event)
+        val onTouchEvent = mScaleDetector.onTouchEvent(event)
+        Log.i("pppppppppp",onTouchEvent.toString())
         if (!mScaleDetector.isInProgress()) {
             when (action) {
-                MotionEvent.ACTION_MOVE -> {
 
-                    centerPoint.x = event.x
-                    centerPoint.y = event.y
-                    postInvalidate()
+                MotionEvent.ACTION_MOVE -> {
+                    val x = event.x
+                    val y = event.y
+                    if (pow(x.toDouble() - centerPoint.x, 2.0) + pow(y.toDouble() - centerPoint.y,2.0) <= pow(radius.toDouble(),2.0)) {
+                        centerPoint.x = x
+                        centerPoint.y =y
+                        postInvalidate()
+                    }
+
 
                 }
 
@@ -93,12 +104,6 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
         var y = 0
 
 
-        // When radius is zero only a single point will be printed
-        if (r > 0) {
-            canvas?.drawPoint(x + x_centre.toFloat(), -y + y_centre.toFloat(), paint)
-            canvas?.drawPoint(y + x_centre.toFloat(), x + y_centre.toFloat(), paint)
-            canvas?.drawPoint(-y + x_centre.toFloat(), x + y_centre.toFloat(), paint)
-        }
 
         // Initialising the value of P
         var P: Int = 1 - r
@@ -111,7 +116,7 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
             }
 
             // All the perimeter points have already been printed
-            if (x < y) break
+         //   if (x < y) break
 
             // Printing the generated point and its reflection in the other octants after translation
             if (pattern[counter++ % (pattern.size)]) {

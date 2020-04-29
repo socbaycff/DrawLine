@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import java.lang.Math.pow
 
 class Bai4View(context: Context, attributeSet: AttributeSet): View(context,attributeSet) {
 
@@ -84,10 +85,21 @@ class Bai4View(context: Context, attributeSet: AttributeSet): View(context,attri
         if (!mScaleDetector.isInProgress()) {
             when (action) {
                 MotionEvent.ACTION_MOVE -> {
+                    val x = event.x
+                    val y = event.y
+                    val vt = pow((x-centerPoint.x).toDouble(),2.0)/ pow(radiusX.toDouble(),2.0)
+                    val vp = pow((y-centerPoint.y).toDouble(),2.0)/ pow(radiusy.toDouble(),2.0)
 
-                    centerPoint.x = event.x
-                    centerPoint.y = event.y
-                    postInvalidate()
+
+
+                    if (vt + vp <= 1) {
+
+                        centerPoint.x = x
+                        centerPoint.y = y
+                        postInvalidate()
+
+                    }
+
 
                 }
 
