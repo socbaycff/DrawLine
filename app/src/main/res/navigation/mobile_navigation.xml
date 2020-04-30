@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/bai3"
         android:name="com.example.drawline.ui.bai3.Bai3Frag"
-        android:label="Bài 3: Hình tròn"
-        tools:layout="@layout/fragment_bai3"/>
+        android:label="Bài 3: Đường tròn"
+        tools:layout="@layout/fragment_bai3" />
 
     <fragment
         android:id="@+id/bai1"

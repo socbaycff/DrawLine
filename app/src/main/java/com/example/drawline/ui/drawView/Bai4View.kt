@@ -21,12 +21,18 @@ class Bai4View(context: Context, attributeSet: AttributeSet): View(context,attri
         super.onLayout(changed, left, top, right, bottom)
         centerPoint.x = width/2f
         centerPoint.y = height/2f
+        originX = width/2
+        originY = height/2
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        // ve truc x, y
+        canvas?.drawLine(0f,height/2f,width.toFloat(),height/2f,axisPaint)
+        canvas?.drawLine(width/2f,0f,width/2f,height.toFloat(),axisPaint)
         drawEllipse(radiusX.toFloat(),radiusy.toFloat(),centerPoint.x,centerPoint.y,canvas)
-        onRadiusChangeListener(centerPoint,radiusX,radiusy)
+        changeAxis()
+        onRadiusChangeListener(newCenterPoint,radiusX,radiusy)
     }
 
     private val paint =
@@ -37,6 +43,11 @@ class Bai4View(context: Context, attributeSet: AttributeSet): View(context,attri
             strokeWidth = 20f
             strokeCap = Paint.Cap.ROUND
         }
+
+    private val axisPaint = Paint().apply {
+        color = Color.BLACK
+        strokeWidth = 5f
+    }
 
     var putLength = 25
     var unputLength = 25
@@ -178,5 +189,13 @@ class Bai4View(context: Context, attributeSet: AttributeSet): View(context,attri
                 d2 = d2 + dx - dy + radius_x * radius_x
             }
         }
+    }
+
+    var originX = 0
+    var originY = 0
+    private var newCenterPoint = PointF()
+    fun changeAxis() {
+        newCenterPoint.x = (centerPoint.x-width) + originX
+        newCenterPoint.y = originY - centerPoint.y
     }
 }

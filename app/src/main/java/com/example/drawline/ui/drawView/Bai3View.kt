@@ -15,6 +15,7 @@ import java.lang.Math.pow
 class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attributeSet) {
 
     private  var centerPoint = PointF()
+    private var newCenterPoint = PointF()
     private  var radius: Int = 100
 
     private val paint =
@@ -25,6 +26,10 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
             strokeWidth = 20f
             strokeCap = Paint.Cap.ROUND
         }
+    private val axisPaint = Paint().apply {
+        color = Color.BLACK
+        strokeWidth = 5f
+    }
 
     var putLength = 25
     var unputLength = 25
@@ -42,11 +47,17 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
         super.onLayout(changed, left, top, right, bottom)
         centerPoint.x = width/2f
         centerPoint.y = height/2f
+        originX = width/2
+        originY = height/2
     }
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        // ve truc x, y
+        canvas?.drawLine(0f,height/2f,width.toFloat(),height/2f,axisPaint)
+        canvas?.drawLine(width/2f,0f,width/2f,height.toFloat(),axisPaint)
         drawCircle(radius,centerPoint.x.toInt(),centerPoint.y.toInt(),canvas)
-        drawListener(centerPoint,radius)
+        changeAxis()
+        drawListener(newCenterPoint,radius)
     }
 
 
@@ -104,6 +115,13 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
         var y = 0
 
 
+        canvas?.drawPoint(x + x_centre.toFloat(), y + y_centre.toFloat(), paint)
+        if (radius > 0)
+        {
+            canvas?.drawPoint(x + x_centre.toFloat(), -y + y_centre.toFloat(), paint)
+            canvas?.drawPoint(y + x_centre.toFloat(), x + y_centre.toFloat(), paint)
+            canvas?.drawPoint(-y + x_centre.toFloat(), x + y_centre.toFloat(), paint)
+        }
 
         // Initialising the value of P
         var P: Int = 1 - r
@@ -116,7 +134,7 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
             }
 
             // All the perimeter points have already been printed
-         //   if (x < y) break
+            if (x < y) break
 
             // Printing the generated point and its reflection in the other octants after translation
             if (pattern[counter++ % (pattern.size)]) {
@@ -135,5 +153,12 @@ class Bai3View(context: Context, attributeSet: AttributeSet): View(context,attri
             }
 
         }
+    }
+
+    var originX = 0
+    var originY = 0
+    fun changeAxis() {
+        newCenterPoint.x = (centerPoint.x-width) + originX
+        newCenterPoint.y = originY - centerPoint.y
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.drawline.R
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_bai4.view.*
 
 
@@ -23,13 +24,14 @@ class Bai4Frag : Fragment() {
         val bai4view = root.bai4View
         root.guideb4.text = "Thao tác zoom 2 ngón để thay đổi kích thước bán kính \n Kéo thả để di chuyển tâm"
         bai4view.setRadiusChangeListener { center, radiusX, radiusY ->
-            radiusTv.text = "Tam ellipse: (${center.x} , ${center.y}) \n Ban Kinh X: $radiusX \n" + " Ban Kinh Y: $radiusY"
+            radiusTv.text = "Tâm ellipse: (${center.x.toInt()} , ${center.y.toInt()}) \n Bán Kính X: $radiusX \n" + " Bán Kính Y: $radiusY"
         }
 
         root.changeRadScaleBtn.setOnClickListener {
             val changeMode = bai4view.changeMode()
             val text = if (!changeMode) " trục dọc(Y)" else "trục ngang(X)"
-            Toast.makeText(context," Đổi trục điều chỉnh thành $text ",Toast.LENGTH_SHORT).show()
+
+            Toasty.success(context!!," Đổi trục điều chỉnh thành $text ",Toast.LENGTH_SHORT).show()
             modeTv.text = "Đang điều chỉnh $text"
         }
         return root

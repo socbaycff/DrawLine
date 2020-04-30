@@ -10,20 +10,24 @@ class Bai1View(context: Context,attributeSet: AttributeSet): View(context,attrib
     val pointArray = ArrayList<Pair<Int,Int>>()
     var originX = 0
     var originY = 0
+    var xMax = 0
+    var yMax = 0
+    var xMin = 0
+    var yMin = 0
 
     var doRongDonVi = 100
 
-    val axisPaint = Paint().apply {
+    private val axisPaint = Paint().apply {
         color = Color.BLACK
         strokeWidth = 5f
     }
 
-    val textPaint = Paint().apply {
+    private val textPaint = Paint().apply {
         color = Color.BLACK
         textSize = 50f
     }
 
-    val pointPaint = Paint().apply {
+    private val pointPaint = Paint().apply {
         color = Color.RED
         strokeWidth = 40f
     }
@@ -32,6 +36,10 @@ class Bai1View(context: Context,attributeSet: AttributeSet): View(context,attrib
         super.onLayout(changed, left, top, right, bottom)
         originX = width/2
         originY = height/2
+        xMax = (width - originX) / doRongDonVi
+        xMin = - xMax
+        yMax = (height - originY) / doRongDonVi
+        yMin = -yMax
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -47,14 +55,14 @@ class Bai1View(context: Context,attributeSet: AttributeSet): View(context,attrib
 
     }
 
-    fun unitToPixel(x: Int,y: Int): Pair<Int,Int> { // chuyen doi don vi thanh pixel
+    private fun unitToPixel(x: Int,y: Int): Pair<Int,Int> { // chuyen doi don vi thanh pixel
         val newX = x * doRongDonVi
         val newY = y * doRongDonVi
         val result = Pair<Int,Int>(newX,newY)
         return result
     }
 
-    fun changeAxis(x: Int, y: Int): PointF{ // chuyen doi toa do may tinh sang toa do cua bai
+    private fun changeAxis(x: Int, y: Int): PointF{ // chuyen doi toa do may tinh sang toa do cua bai
         val oldPoint = unitToPixel(x, y)
         val oldX = oldPoint.first.toFloat()
         val oldY = oldPoint.second.toFloat()
@@ -68,9 +76,15 @@ class Bai1View(context: Context,attributeSet: AttributeSet): View(context,attrib
         pointArray.clear()
         postInvalidate()
     }
-    fun addPoint(x: Int, y : Int) {
-        pointArray.add(Pair(x,y))
-        postInvalidate()
+
+
+    fun addPoint(x: Int, y : Int): Boolean {
+        if ((x>xMin && x< xMax ) && (y > yMin && y < yMax) ) {
+            pointArray.add(Pair(x,y))
+            postInvalidate()
+            return true
+        } else return false
+
     }
 
 

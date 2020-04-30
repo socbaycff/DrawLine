@@ -54,7 +54,6 @@ class Bai2Frag : Fragment() {
         v: View,
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
-
         menu.setHeaderTitle("Chọn loại nét vẽ: ");
         activity?.menuInflater?.inflate(R.menu.menu_line_mode,menu)
     }

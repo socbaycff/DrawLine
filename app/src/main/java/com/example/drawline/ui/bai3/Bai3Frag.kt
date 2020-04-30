@@ -22,7 +22,7 @@ class Bai3Frag : Fragment() {
         val bai3view = root.bai3View
         root.guideb3.text = "Thao tác zoom 2 ngón để thay đổi kích thước bán kính \n Kéo thả để di chuyển tâm"
         bai3view.setDrawListener { center, radius ->
-            tamTv.text = "Toạ độ tâm (${center.x}, ${center.y})"
+            tamTv.text = "Toạ độ tâm (${center.x.toInt()}, ${center.y.toInt()})"
             banKinhTV.text = "Độ dài bán kính: $radius"
         }
         return root

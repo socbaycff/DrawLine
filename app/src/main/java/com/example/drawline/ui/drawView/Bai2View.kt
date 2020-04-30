@@ -23,6 +23,11 @@ class Bai2View(context:Context, attributeSet: AttributeSet) : View(context,attri
             strokeCap = Paint.Cap.ROUND
         }
 
+    private val axisPaint = Paint().apply {
+        color = Color.BLACK
+        strokeWidth = 5f
+    }
+
     private var xTemp = 0
     private var yTemp = 0
     private var isStart = false
@@ -124,6 +129,9 @@ class Bai2View(context:Context, attributeSet: AttributeSet) : View(context,attri
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        // ve truc x, y
+        canvas?.drawLine(0f,height/2f,width.toFloat(),height/2f,axisPaint)
+        canvas?.drawLine(width/2f,0f,width/2f,height.toFloat(),axisPaint)
         if (xStart != null && yStart != null && xEnd != null && yEnd != null) {
 
             if (drawMode) { // neu mode ve duong thang
