@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="Nhóm này 5 người mà có mình em, Lê Duy Khang làm à cô ơi, trừ điểm chết đuỹ mịa mấy bạn đi, cho tạch hết cũng được, học hành éo gì nữa!!!"
-        android:textSize="36sp" />
+        android:text="Nhóm 28: \n 1.Lê Duy Khang N17DCCN067 \n 2.Phạm Phương Nam N17DCCN104 \n 3.Cao Anh Minh N17DCCN092 \n 4.Nguyễn Hoàng Nam N17DCCN101 \n 5.Hoàng Phương Nam N17DCCN099"
+        android:textSize="30sp" />
 
 </androidx.core.widget.NestedScrollView>
